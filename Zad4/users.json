@@ -1,0 +1,14 @@
+[
+  {
+    "id": "611ba001-541f-40ba-a8d8-5102c98be5f3",
+    "login": "admin",
+    "passwordHash": "$2a$10$/19B5HQMkwSQrbD2gKvSbO/EKfDkfEy//CCRNWOh2ed67r7dISzO2",
+    "role": "ADMIN"
+  },
+  {
+    "id": "2c0fb69c-7a3c-4b31-8831-e3432e709618",
+    "login": "user1",
+    "passwordHash": "$2a$10$F.nApSgahmFZ8CyzVYplVuxWPWVZQCPswMVdis65jY70YBznOLrPW",
+    "role": "USER"
+  }
+]

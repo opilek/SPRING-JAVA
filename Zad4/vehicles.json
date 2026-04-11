@@ -1,0 +1,22 @@
+[
+  {
+    "id": "C1",
+    "category": "Car",
+    "brand": "Tesla",
+    "model": "Model 3",
+    "year": 2023,
+    "plate": "EL-TESLA",
+    "price": 400.0,
+    "attributes": {}
+  },
+  {
+    "id": "M1",
+    "category": "Motorcycle",
+    "brand": "Ducati",
+    "model": "Panigale V4",
+    "year": 2022,
+    "plate": "W0-SPEED",
+    "price": 300.0,
+    "attributes": {}
+  }
+]
