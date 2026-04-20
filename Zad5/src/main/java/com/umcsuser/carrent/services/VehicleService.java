@@ -33,7 +33,7 @@ public class VehicleService {
 
 
     public void deleteVehicle(String id) {
-        // STRAŻNIK: Sprawdzamy czy auto jest na liście aktywnych wypożyczeń
+
         boolean isRented = rentalRepository.findAll().stream()
                 .anyMatch(r -> r.getVehicleId().equals(id) && r.isActive());
 

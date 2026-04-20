@@ -36,7 +36,7 @@ public class UI {
         }
     }
 
-    // --- MENU STARTOWE ---
+
     private void showAuthMenu() {
         System.out.println("\n******* SYSTEM WYPOŻYCZALNI *******");
         System.out.println("1. Logowanie");
@@ -60,7 +60,7 @@ public class UI {
         }
     }
 
-    // --- LOGOWANIE I REJESTRACJA ---
+
     private void handleLogin() {
         System.out.print("Login: "); String login = scanner.nextLine();
         System.out.print("Hasło: "); String pass = scanner.nextLine();
@@ -75,7 +75,7 @@ public class UI {
         String pass = scanner.nextLine();
 
         try {
-            // Rola jest sztywno ustawiona na USER
+
             userService.register(login, pass, Role.USER);
             System.out.println("Rejestracja zakończona sukcesem.");
         } catch (IllegalArgumentException e) {
@@ -83,7 +83,7 @@ public class UI {
         }
     }
 
-    // --- GŁÓWNE MENU ---
+
     private void showMainMenu() {
         System.out.println("\n--- ZALOGOWANO: " + currentUser.getLogin() + " (" + currentUser.getRole() + ") ---");
 
@@ -114,7 +114,7 @@ public class UI {
         handleUserAction(scanner.nextLine());
     }
 
-    // --- AKCJE ADMINA ---
+
     private void handleAdminAction(String choice) {
         try {
             switch (choice) {
@@ -143,19 +143,19 @@ public class UI {
         }
     }
 
-    // --- AKCJE USERA ---
+
     private void handleUserAction(String choice) {
         try {
             switch (choice) {
                 case "1" -> {
                     System.out.println("Dostępne pojazdy:");
-                    // Tutaj możesz filtrować tylko dostępne, ale na razie pokazujemy wszystkie
+
                     vehicleService.findAllVehicles().forEach(System.out::println);
                 }
                 case "2" -> {
                     System.out.print("Podaj ID pojazdu do wypożyczenia: ");
                     String vehicleId = scanner.nextLine();
-                    // Tutaj poleci wyjątek z serwisu, jeśli user ma już auto
+
                     rentalService.rentVehicle(currentUser.getId(), vehicleId);
                     System.out.println("Pomyślnie wypożyczono pojazd.");
                 }
@@ -172,7 +172,7 @@ public class UI {
         }
     }
 
-    // --- DYNAMICZNE DODAWANIE POJAZDU (ZADANIE 5) ---
+
     private void handleAddVehicle() {
         System.out.println("\nKonfiguracja kategorii z JSON:");
         configService.findAllCategories().forEach(c -> System.out.print("[" + c.getCategory() + "] "));

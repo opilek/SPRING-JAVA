@@ -16,8 +16,7 @@ public class RentalService {
     }
 
     public void rentVehicle(String userId, String vehicleId) {
-        // 1. Sprawdzenie, czy ten użytkownik ma już aktywne wypożyczenie
-        // (używamy Twojej metody isActive(), która sprawdza czy returnDateTime == null)
+
         boolean hasActiveRental = rentalRepository.findAll().stream()
                 .anyMatch(r -> r.getUserId().equals(userId) && r.isActive());
 
@@ -25,7 +24,7 @@ public class RentalService {
             throw new IllegalStateException("Masz już wypożyczony pojazd. Najpierw musisz go zwrócić.");
         }
 
-        // 2. Sprawdzenie, czy pojazd nie jest zajęty przez kogoś innego
+
         boolean isVehicleBusy = rentalRepository.findAll().stream()
                 .anyMatch(r -> r.getVehicleId().equals(vehicleId) && r.isActive());
 
@@ -33,14 +32,13 @@ public class RentalService {
             throw new IllegalStateException("Ten pojazd jest obecnie wypożyczony.");
         }
 
-        // 3. Tworzymy obiekt Rental zgodnie z Twoją kolejnością pól:
-        // id, vehicleId, userId, startDateTime, returnDateTime
+
         Rental rental = new Rental(
-                UUID.randomUUID().toString(), // id
-                vehicleId,                   // vehicleId (u Ciebie jest drugie!)
-                userId,                      // userId (u Ciebie jest trzecie!)
-                LocalDateTime.now(),          // startDateTime
-                null                         // returnDateTime (null oznacza, że auto jest w trasie)
+                UUID.randomUUID().toString(),
+                vehicleId,
+                userId,
+                LocalDateTime.now(),
+                null
         );
 
         rentalRepository.save(rental);
@@ -52,8 +50,7 @@ public class RentalService {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono aktywnego wypożyczenia dla tego auta."));
 
-        // Zamiast setActive(false), ustawiamy datę zwrotu.
-        // Twoja metoda isActive() automatycznie zwróci wtedy 'false'.
+
         rental.setReturnDateTime(LocalDateTime.now());
         rentalRepository.save(rental);
     }

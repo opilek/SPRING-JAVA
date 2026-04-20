@@ -38,16 +38,16 @@ public class UserService {
     }
 
     public void deleteUserByLogin(String login) {
-        // 1. Szukamy użytkownika po loginie
+
         User user = userRepository.findByLogin(login)
                 .orElseThrow(() -> new IllegalArgumentException("Nie znaleziono użytkownika o loginie: " + login));
 
-        // 2. Blokada usuwania Admina (nawet po loginie)
+
         if (user.getRole() == Role.ADMIN) {
             throw new IllegalStateException("BŁĄD: Nie można usunąć użytkownika z uprawnieniami ADMIN.");
         }
 
-        // 3. Sprawdzanie aktywnych wypożyczeń (korzystając z ID znalezionego usera)
+
         boolean hasActiveRentals = rentalRepository.findAll().stream()
                 .anyMatch(r -> r.getUserId().equals(user.getId()) && r.isActive());
 
