@@ -1,5 +1,6 @@
 package com.umcsuser.carrent.services;
 
+import com.umcsuser.carrent.models.Rental;
 import com.umcsuser.carrent.models.Role;
 import com.umcsuser.carrent.models.User;
 import com.umcsuser.carrent.repositories.UserRepository;
@@ -60,5 +61,18 @@ public class UserService {
 
     public List<User> findAll() {
         return userRepository.findAll();
+    }
+
+    public boolean hasActiveRental(String userId) {
+        return rentalRepository.findAll().stream()
+                .anyMatch(r -> r.getUserId().equals(userId) && r.isActive());
+    }
+
+    public String getActiveVehicleId(String userId) {
+        return rentalRepository.findAll().stream()
+                .filter(r -> r.getUserId().equals(userId) && r.isActive())
+                .map(Rental::getVehicleId)
+                .findFirst()
+                .orElse(null);
     }
 }

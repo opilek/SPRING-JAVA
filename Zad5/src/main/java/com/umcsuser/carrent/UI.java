@@ -5,7 +5,9 @@ import com.umcsuser.carrent.models.User;
 import com.umcsuser.carrent.models.Vehicle;
 import com.umcsuser.carrent.models.VehicleCategoryConfig;
 import com.umcsuser.carrent.services.*;
+import com.umcsuser.carrent.models.Rental;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -99,8 +101,9 @@ public class UI {
         System.out.println("2. Usuń pojazd");
         System.out.println("3. Lista pojazdów");
         System.out.println("4. Lista użytkowników");
-        System.out.println("5. Usuń użytkownika");
-        System.out.println("6. Wyloguj");
+        System.out.println("5. Lista wypożyczeń");
+        System.out.println("6. Usuń użytkownika");
+        System.out.println("7. Wyloguj");
         System.out.print("Wybór: ");
         handleAdminAction(scanner.nextLine());
     }
@@ -109,7 +112,8 @@ public class UI {
         System.out.println("1. Wyświetl listę dostępnych pojazdów do wypożyczenia");
         System.out.println("2. Wypożycz pojazd");
         System.out.println("3. Zwróć pojazd");
-        System.out.println("4. Wyloguj");
+        System.out.println("4. Wyświetl swoje dane");
+        System.out.println("5. Wyloguj");
         System.out.print("Wybór: ");
         handleUserAction(scanner.nextLine());
     }
@@ -126,16 +130,55 @@ public class UI {
                 }
                 case "3" -> vehicleService.findAllVehicles().forEach(System.out::println);
                 case "4" -> {
-                    System.out.println("Lista użytkowników w systemie:");
-                    userService.findAll().forEach(System.out::println); // Wymaga dodania findAll() w UserService
+                    System.out.println("\n--- LISTA UŻYTKOWNIKÓW W SYSTEMIE ---");
+                    userService.findAll().forEach(user -> {
+
+                        String activeVehicleId = userService.getActiveVehicleId(user.getId());
+
+
+                        String statusLabel;
+                        if (activeVehicleId != null) {
+                            statusLabel = String.format("[STATUS: WYPOŻYCZYŁ POJAZD ID: %s]", activeVehicleId);
+                        } else {
+                            statusLabel = "[STATUS: BRAK AKTYWNYCH]";
+                        }
+
+                        System.out.printf("Login: %-15s | Rola: %-6s | %s%n",
+                                user.getLogin(),
+                                user.getRole(),
+                                statusLabel);
+                    });
                 }
                 case "5" -> {
+                    System.out.println("\n--- HISTORIA I STATUS WYPOŻYCZEŃ ---");
+                    List<Rental> rentals = rentalService.findAll();
+                    if (rentals.isEmpty()) {
+                        System.out.println("Brak jakichkolwiek wypożyczeń w bazie.");
+                    } else {
+                        rentals.forEach(r -> {
+                            String status = r.isActive() ? "[AKTYWNE]" : "[ZWRÓCONE]";
+                            String returnInfo = r.getReturnDateTime() != null
+                                    ? r.getReturnDateTime().toString()
+                                    : "---";
+
+                            System.out.printf("Pojazd ID: %-5s | User ID: %-36s | Start: %-20s | Zwrot: %-20s | %s%n",
+                                    r.getVehicleId(),
+                                    r.getUserId(),
+                                    r.getStartDateTime(),
+                                    returnInfo,
+                                    status);
+                        });
+                    }
+                }
+                case "6" -> {
                     System.out.print("Podaj LOGIN użytkownika do usunięcia: ");
                     String loginToDelete = scanner.nextLine().trim();
                     userService.deleteUserByLogin(loginToDelete);
                     System.out.println("Użytkownik " + loginToDelete + " został usunięty.");
                 }
-                case "6" -> currentUser = null;
+
+
+                case "7" -> currentUser = null;
                 default -> System.out.println("Nieprawidłowa opcja.");
             }
         } catch (Exception e) {
@@ -148,9 +191,13 @@ public class UI {
         try {
             switch (choice) {
                 case "1" -> {
-                    System.out.println("Dostępne pojazdy:");
-
-                    vehicleService.findAllVehicles().forEach(System.out::println);
+                    System.out.println("\n--- DOSTĘPNE POJAZDY ---");
+                    List<Vehicle> available = vehicleService.findAvailableVehicles();
+                    if (available.isEmpty()) {
+                        System.out.println("Niestety, wszystkie pojazdy są obecnie wypożyczone.");
+                    } else {
+                        available.forEach(System.out::println);
+                    }
                 }
                 case "2" -> {
                     System.out.print("Podaj ID pojazdu do wypożyczenia: ");
@@ -164,7 +211,31 @@ public class UI {
                     rentalService.returnVehicle(scanner.nextLine());
                     System.out.println("Pojazd został zwrócony.");
                 }
-                case "4" -> currentUser = null;
+
+                case "4" -> {
+                    System.out.println("\n--- DANE UŻYTKOWNIKA ---");
+
+
+                    String activeId = userService.getActiveVehicleId(currentUser.getId());
+
+                    String rentedVehicleInfo = "BRAK";
+
+                    if (activeId != null)
+                    {
+
+                        rentedVehicleInfo = vehicleService.findAllVehicles().stream()
+                                .filter(v -> v.getId().equals(activeId))
+                                .map(v -> v.getBrand() + " " + v.getModel() + " (ID: " + v.getId() + ")")
+                                .findFirst()
+                                .orElse("Pojazd o ID " + activeId + " (brak szczegółowych danych)");
+                    }
+
+                    System.out.printf("ID: %-36s | Login: %s | Status wypożyczenia: %s%n",
+                            currentUser.getId(),
+                            currentUser.getLogin(),
+                            rentedVehicleInfo);
+                }
+                case "5" -> currentUser = null;
                 default -> System.out.println("Nieprawidłowa opcja.");
             }
         } catch (Exception e) {
@@ -180,12 +251,17 @@ public class UI {
         System.out.print("\nPodaj kategorię: ");
         String cat = scanner.nextLine().trim();
         VehicleCategoryConfig config = configService.getByCategory(cat);
+        if (config == null)
+        {
+            System.out.println("BŁĄD: Kategoria '" + cat + "' nie istnieje w konfiguracji.");
+            return;
+        }
 
         System.out.print("ID: "); String id = scanner.nextLine();
         System.out.print("Marka: "); String brand = scanner.nextLine();
         System.out.print("Model: "); String model = scanner.nextLine();
         System.out.print("Rok: "); int year = Integer.parseInt(scanner.nextLine());
-        System.out.print("Numer Rej: "); String plate = scanner.nextLine();
+        System.out.print("Numer Rejstracyjny: "); String plate = scanner.nextLine();
         System.out.print("Cena: "); double price = Double.parseDouble(scanner.nextLine());
 
         Vehicle vehicle = Vehicle.builder()

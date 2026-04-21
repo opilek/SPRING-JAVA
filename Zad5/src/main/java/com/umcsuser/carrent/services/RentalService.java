@@ -4,6 +4,7 @@ import com.umcsuser.carrent.models.Rental;
 import com.umcsuser.carrent.repositories.RentalRepository;
 import com.umcsuser.carrent.repositories.VehicleRepository;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class RentalService {
@@ -53,5 +54,9 @@ public class RentalService {
 
         rental.setReturnDateTime(LocalDateTime.now());
         rentalRepository.save(rental);
+    }
+
+    public List<Rental> findAll() {
+        return rentalRepository.findAll();
     }
 }

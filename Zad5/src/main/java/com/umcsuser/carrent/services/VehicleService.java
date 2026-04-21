@@ -1,5 +1,6 @@
 package com.umcsuser.carrent.services;
 
+import com.umcsuser.carrent.models.Rental;
 import com.umcsuser.carrent.models.Vehicle;
 import com.umcsuser.carrent.repositories.RentalRepository;
 import com.umcsuser.carrent.repositories.VehicleRepository;
@@ -10,7 +11,7 @@ public class VehicleService {
 
     private final VehicleValidator vehicleValidator;
     private final VehicleRepository vehicleRepository;
-    private final RentalRepository rentalRepository; // DOPISANE
+    private final RentalRepository rentalRepository;
 
 
     public VehicleService(VehicleValidator vehicleValidator,
@@ -42,5 +43,19 @@ public class VehicleService {
         }
 
         vehicleRepository.deleteById(id);
+    }
+
+    public List<Vehicle> findAvailableVehicles()
+    {
+
+        List<String> rentedVehicleIds = rentalRepository.findAll().stream()
+                .filter(Rental::isActive)
+                .map(Rental::getVehicleId)
+                .toList();
+
+
+        return vehicleRepository.findAll().stream()
+                .filter(v -> !rentedVehicleIds.contains(v.getId()))
+                .toList();
     }
 }

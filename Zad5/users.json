@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "6fad15e0-d2ea-40d2-96dc-305bd999336b",
+    "login": "admin",
+    "password": "$2a$10$w5sIm.LROihwWH2ucPA.RO62alzRhvQ.HSHNU7QlYz3qVALNebKKW",
+    "role": "ADMIN"
+  },
+  {
+    "id": "4af44558-0140-49d2-a620-63968648ca9f",
+    "login": "user",
+    "password": "$2a$10$h.J2bnASzB3of3CBc.Ulwe2scU6wFmjVYcIJUUc1kAeTWunGypwXK",
+    "role": "USER"
+  }
+]
