@@ -1,0 +1,14 @@
+[
+  {
+    "id": "45ea11b3-7154-41cc-bcd5-1a419c52cb9c",
+    "login": "admin",
+    "password": "$2a$10$iYTWywMME5Uc1PzUQm44Y.NqVCs7vZZrwLS/jR04Dhcmb.bZckYr.",
+    "role": "ADMIN"
+  },
+  {
+    "id": "e0d23da1-36c8-466f-ad1b-c8795373a549",
+    "login": "user",
+    "password": "$2a$10$9HCxDAx7630xKtV2VK9/DeXQ3CfTnDTe6pwHrawN3t7VWofy3mTCS",
+    "role": "USER"
+  }
+]
