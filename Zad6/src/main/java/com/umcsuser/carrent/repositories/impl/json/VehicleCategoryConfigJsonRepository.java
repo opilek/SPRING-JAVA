@@ -1,4 +1,4 @@
-package com.umcsuser.carrent.repositories.impl;
+package com.umcsuser.carrent.repositories.impl.json;
 
 import com.google.gson.reflect.TypeToken;
 import com.umcsuser.carrent.db.JsonFileStorage;
