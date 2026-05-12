@@ -12,5 +12,12 @@
     "userId": "4af44558-0140-49d2-a620-63968648ca9f",
     "startDateTime": "2026-04-21T14:38:16.0728372",
     "returnDateTime": "2026-04-21T14:46:19.8786934"
+  },
+  {
+    "id": "57ac5f56-cfa6-47ab-a9b3-3662e90a5442",
+    "vehicleId": "1",
+    "userId": "c9c655fa-b72a-4927-8a34-4a5ecf4bb5fc",
+    "startDateTime": "2026-04-28T16:12:40.9523737",
+    "returnDateTime": "2026-04-28T16:14:04.1630584"
   }
 ]

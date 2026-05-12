@@ -1,17 +1,5 @@
 [
   {
-    "id": "1",
-    "category": "Car",
-    "brand": "Toyota",
-    "model": "Corolla",
-    "year": 2020,
-    "plate": "LU123",
-    "price": 100.0,
-    "attributes": {
-      "fuelType": "hybrid"
-    }
-  },
-  {
     "id": "2",
     "category": "Motorcycle",
     "brand": "Kawasaki",
@@ -32,6 +20,18 @@
     "year": 2021,
     "plate": "LU298",
     "price": 600.0,
+    "attributes": {
+      "seats": 5.0
+    }
+  },
+  {
+    "id": "4",
+    "category": "Bus",
+    "brand": "dsj",
+    "model": "2",
+    "year": 2020,
+    "plate": "LU123",
+    "price": 200.0,
     "attributes": {
       "seats": 5
     }
