@@ -1,4 +1,4 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.hibernate;
 
 import org.example.models.User;
 import org.example.repositories.UserRepository;

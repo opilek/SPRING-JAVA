@@ -1,9 +1,8 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.json;
 
 import com.google.gson.reflect.TypeToken;
 import org.example.db.JsonFileStorage;
 import org.example.models.User;
-import org.example.models.Vehicle;
 import org.example.repositories.UserRepository;
 
 import java.util.ArrayList;

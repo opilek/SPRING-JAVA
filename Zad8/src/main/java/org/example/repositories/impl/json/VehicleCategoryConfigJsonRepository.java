@@ -1,4 +1,4 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.json;
 
 import com.google.gson.reflect.TypeToken;
 import org.example.db.JsonFileStorage;

@@ -1,4 +1,4 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.hibernate;
 
 import org.example.models.Rental;
 import org.example.repositories.RentalRepository;

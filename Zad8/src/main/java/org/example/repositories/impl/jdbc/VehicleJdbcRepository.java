@@ -1,4 +1,4 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.jdbc;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

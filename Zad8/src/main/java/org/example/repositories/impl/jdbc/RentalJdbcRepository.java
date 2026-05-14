@@ -1,4 +1,4 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.jdbc;
 
 import org.example.db.JdbcConnectionManager;
 import org.example.models.Rental;
@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class RentalJdbcRepository implements RentalRepository {

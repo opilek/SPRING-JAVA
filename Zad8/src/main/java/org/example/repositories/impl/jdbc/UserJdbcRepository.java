@@ -1,4 +1,4 @@
-package org.example.repositories.impl;
+package org.example.repositories.impl.jdbc;
 
 import org.example.db.JdbcConnectionManager;
 import org.example.models.Role;
