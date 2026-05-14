@@ -1,18 +1,22 @@
 package org.example.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.models.Role;
 import org.example.models.User;
 import org.example.repositories.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public class UserSimpleService implements org.example.services.UserServiceInterface {
+@Service
+@Transactional
+public class UserService implements org.example.services.UserServiceInterface {
     private final UserRepository userRepository;
 
-    private final RentalSimpleService rentalService;
+    private final RentalService rentalService;
 
-    public UserSimpleService(UserRepository userRepository, RentalSimpleService rentalService) {
+    public UserService(UserRepository userRepository, RentalService rentalService) {
         this.userRepository = userRepository;
         this.rentalService = rentalService;
     }

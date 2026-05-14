@@ -1,16 +1,20 @@
 package org.example.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.models.Role;
 import org.example.models.User;
 import org.example.repositories.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-public class AuthSimpleService implements org.example.services.AuthServiceInterface {
+@Service
+@Transactional
+public class AuthService implements org.example.services.AuthServiceInterface {
     private final UserRepository userRepository;
 
-    public AuthSimpleService(UserRepository userRepository) {
+    public AuthService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

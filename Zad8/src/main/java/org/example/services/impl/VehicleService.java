@@ -1,22 +1,26 @@
 package org.example.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.models.Vehicle;
 import org.example.repositories.RentalRepository;
 import org.example.repositories.VehicleRepository;
 import org.example.services.VehicleValidator;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class VehicleSimpleService implements org.example.services.VehicleServiceInterface {
+@Service
+@Transactional
+public class VehicleService implements org.example.services.VehicleServiceInterface {
     private final VehicleRepository vehicleRepository;
 
     private final RentalRepository rentalRepository;
 
     private final VehicleValidator vehicleValidator;
 
-    public VehicleSimpleService(VehicleRepository vehicleRepository, RentalRepository rentalRepository, VehicleValidator vehicleValidator) {
+    public VehicleService(VehicleRepository vehicleRepository, RentalRepository rentalRepository, VehicleValidator vehicleValidator) {
         this.vehicleRepository = vehicleRepository;
         this.rentalRepository = rentalRepository;
         this.vehicleValidator = vehicleValidator;

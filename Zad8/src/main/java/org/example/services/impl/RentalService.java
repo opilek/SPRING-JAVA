@@ -1,23 +1,27 @@
 package org.example.services.impl;
 
+import jakarta.transaction.Transactional;
 import org.example.models.Rental;
 import org.example.models.User;
 import org.example.models.Vehicle;
 import org.example.repositories.RentalRepository;
 import org.example.repositories.UserRepository;
 import org.example.repositories.VehicleRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RentalSimpleService implements org.example.services.RentalServiceInterface {
+@Service
+@Transactional
+public class RentalService implements org.example.services.RentalServiceInterface {
     private final RentalRepository rentalRepository;
     private final VehicleRepository vehicleRepository;
     private final UserRepository userRepository;
 
-    public RentalSimpleService(RentalRepository rentalRepository, VehicleRepository vehicleRepository, UserRepository userRepository) {
+    public RentalService(RentalRepository rentalRepository, VehicleRepository vehicleRepository, UserRepository userRepository) {
         this.rentalRepository = rentalRepository;
         this.vehicleRepository = vehicleRepository;
         this.userRepository = userRepository;
