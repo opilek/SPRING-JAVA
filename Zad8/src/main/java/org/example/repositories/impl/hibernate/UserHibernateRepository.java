@@ -4,10 +4,14 @@ import org.example.models.User;
 import org.example.repositories.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@Profile("jpa")
 public class UserHibernateRepository implements UserRepository {
     private Session session;
 

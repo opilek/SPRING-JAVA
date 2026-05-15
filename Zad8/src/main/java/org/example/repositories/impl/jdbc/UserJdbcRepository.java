@@ -4,6 +4,8 @@ import org.example.db.JdbcConnectionManager;
 import org.example.models.Role;
 import org.example.models.User;
 import org.example.repositories.UserRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
+@Profile("jdbc")
 public class UserJdbcRepository implements UserRepository {
     @Override
     public List<User> findAll() {

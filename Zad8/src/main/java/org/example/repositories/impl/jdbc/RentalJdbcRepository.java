@@ -5,6 +5,8 @@ import org.example.models.Rental;
 import org.example.repositories.RentalRepository;
 import org.example.repositories.UserRepository;
 import org.example.repositories.VehicleRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +14,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+@Repository
+@Profile("jdbc")
 public class RentalJdbcRepository implements RentalRepository {
     private final VehicleRepository vehicleRepository;
     private final UserRepository userRepository;

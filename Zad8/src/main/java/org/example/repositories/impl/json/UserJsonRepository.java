@@ -4,12 +4,16 @@ import com.google.gson.reflect.TypeToken;
 import org.example.db.JsonFileStorage;
 import org.example.models.User;
 import org.example.repositories.UserRepository;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository
+@Profile("json")
 public class UserJsonRepository implements UserRepository {
     private final List<User> users;
     private final JsonFileStorage<User> storage =

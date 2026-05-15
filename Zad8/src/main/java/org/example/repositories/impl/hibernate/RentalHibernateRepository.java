@@ -4,10 +4,14 @@ import org.example.models.Rental;
 import org.example.repositories.RentalRepository;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@Profile("jpa")
 public class RentalHibernateRepository implements RentalRepository {
     private Session session;
 

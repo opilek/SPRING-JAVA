@@ -3,10 +3,14 @@ package org.example.repositories.impl.hibernate;
 import org.example.models.Vehicle;
 import org.example.repositories.VehicleRepository;
 import org.hibernate.Session;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
+@Profile("jpa")
 public class VehicleHibernateRepository implements VehicleRepository {
     private Session session;
 
