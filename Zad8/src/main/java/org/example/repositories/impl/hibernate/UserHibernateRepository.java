@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Profile("jpa")
+@Profile("hibernate")
 public class UserHibernateRepository implements UserRepository {
     private Session session;
 

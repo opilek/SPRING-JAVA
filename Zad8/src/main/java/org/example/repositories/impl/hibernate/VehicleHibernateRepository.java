@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Profile("jpa")
+@Profile("hibernate")
 public class VehicleHibernateRepository implements VehicleRepository {
     private Session session;
 
